@@ -1,0 +1,97 @@
+
+stm32_led.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+08000000 <_text>:
+ 8000000:	20017ffc 	strdcs	r7, [r1], -ip
+ 8000004:	08000055 	stmdaeq	r0, {r0, r2, r4, r6}
+ 8000008:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 800000c:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 8000010:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 8000014:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 8000018:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 800001c:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 8000020:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 8000024:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 8000028:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 800002c:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 8000030:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 8000034:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 8000038:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 800003c:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 8000040:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 8000044:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 8000048:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 800004c:	08000083 	stmdaeq	r0, {r0, r1, r7}
+ 8000050:	08000083 	stmdaeq	r0, {r0, r1, r7}
+
+08000054 <ResetHandler>:
+ 8000054:	490b      	ldr	r1, [pc, #44]	; (8000084 <BUFFaultHandler+0x2>)
+ 8000056:	680d      	ldr	r5, [r1, #0]
+ 8000058:	f045 0580 	orr.w	r5, r5, #128	; 0x80
+ 800005c:	600d      	str	r5, [r1, #0]
+ 800005e:	4a0a      	ldr	r2, [pc, #40]	; (8000088 <BUFFaultHandler+0x6>)
+ 8000060:	6815      	ldr	r5, [r2, #0]
+ 8000062:	f025 457f 	bic.w	r5, r5, #4278190080	; 0xff000000
+ 8000066:	f045 5588 	orr.w	r5, r5, #285212672	; 0x11000000
+ 800006a:	6015      	str	r5, [r2, #0]
+ 800006c:	4a07      	ldr	r2, [pc, #28]	; (800008c <BUFFaultHandler+0xa>)
+ 800006e:	6815      	ldr	r5, [r2, #0]
+ 8000070:	f025 457f 	bic.w	r5, r5, #4278190080	; 0xff000000
+ 8000074:	f045 0511 	orr.w	r5, r5, #17
+ 8000078:	6015      	str	r5, [r2, #0]
+ 800007a:	4905      	ldr	r1, [pc, #20]	; (8000090 <BUFFaultHandler+0xe>)
+ 800007c:	4d05      	ldr	r5, [pc, #20]	; (8000094 <BUFFaultHandler+0x12>)
+ 800007e:	600d      	str	r5, [r1, #0]
+
+08000080 <Loop>:
+ 8000080:	e7fe      	b.n	8000080 <Loop>
+
+08000082 <BUFFaultHandler>:
+ 8000082:	10180000 	andsne	r0, r8, r0
+ 8000086:	1c004002 	stcne	0, cr4, [r0], {2}
+ 800008a:	1c084001 	stcne	0, cr4, [r8], {1}
+ 800008e:	1c104001 	ldcne	0, cr4, [r0], {1}
+ 8000092:	03c04001 	biceq	r4, r0, #1
+	...
+
+08000098 <main>:
+ 8000098:	b480      	push	{r7}
+ 800009a:	af00      	add	r7, sp, #0
+ 800009c:	4618      	mov	r0, r3
+ 800009e:	46bd      	mov	sp, r7
+ 80000a0:	bc80      	pop	{r7}
+ 80000a2:	4770      	bx	lr
+
+Disassembly of section .ARM.attributes:
+
+00000000 <.ARM.attributes>:
+   0:	00002441 	andeq	r2, r0, r1, asr #8
+   4:	61656100 	cmnvs	r5, r0, lsl #2
+   8:	01006962 	tsteq	r0, r2, ror #18
+   c:	0000001a 	andeq	r0, r0, sl, lsl r0
+  10:	06003705 	streq	r3, [r0], -r5, lsl #14
+  14:	1202090a 	andne	r0, r2, #163840	; 0x28000
+  18:	15011404 	strne	r1, [r1, #-1028]	; 0xfffffbfc
+  1c:	18031701 	stmdane	r3, {r0, r8, r9, sl, ip}
+  20:	2c011a01 	stccs	10, cr1, [r1], {1}
+  24:	Address 0x00000024 is out of bounds.
+
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	3a434347 	bcc	10d0d24 <THUMB_EN+0x10d0d23>
+   4:	6f532820 	svcvs	0x00532820
+   8:	65637275 	strbvs	r7, [r3, #-629]!	; 0xfffffd8b
+   c:	47207972 			; <UNDEFINED> instruction: 0x47207972
+  10:	4c202b2b 	stcmi	11, cr2, [r0], #-172	; 0xffffff54
+  14:	20657469 	rsbcs	r7, r5, r9, ror #8
+  18:	30313032 	eorscc	r3, r1, r2, lsr r0
+  1c:	2d39302e 	ldccs	0, cr3, [r9, #-184]!	; 0xffffff48
+  20:	20293135 	eorcs	r3, r9, r5, lsr r1
+  24:	2e352e34 	mrccs	14, 1, r2, cr5, cr4, {1}
+  28:	Address 0x00000028 is out of bounds.
+

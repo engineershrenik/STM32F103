@@ -1,0 +1,82 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+Var                 0x4               main.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x08000000         0x00080000         xr
+SRAM             0x20000000         0x00018000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x08000000      0x304
+                0x08000000                _text = .
+ *(.isr_vector)
+ *(.text*)
+ .text          0x08000000       0x58 startup.o
+ .text          0x08000058      0x298 main.o
+                0x08000058                Delay
+                0x08000084                RCCConfig
+                0x080000d4                GPIOInit
+                0x08000158                GPIOToggle
+                0x080001a8                UARTInit
+                0x0800025c                putChar
+                0x08000290                UARTprintf
+                0x080002bc                TestBitBand
+                0x080002c8                main
+ *(.rodata*)
+ .rodata        0x080002f0       0x14 main.o
+                0x08000304                _etext = .
+
+.glue_7         0x08000304        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x08000304        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x08000304        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x08000304        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.data           0x20000000       0x20 load address 0x08000304
+                0x20000000                _data = .
+ *(vtable)
+ *(.data*)
+ .data          0x20000000        0x0 startup.o
+ .data          0x20000000       0x20 main.o
+                0x20000000                arr
+                0x20000020                _edata = .
+
+.bss            0x20000020        0xc load address 0x08000324
+                0x20000020                _bss = .
+ *(.bss*)
+ .bss           0x20000020        0x0 startup.o
+ .bss           0x20000020        0x8 main.o
+                0x20000020                Address
+                0x20000024                VarBitValue
+ *(COMMON)
+ COMMON         0x20000028        0x4 main.o
+                0x20000028                Var
+                0x2000002c                _ebss = .
+                0x20017ffc                __stack_end = 0x20017ffc
+LOAD startup.o
+LOAD main.o
+OUTPUT(stm32_peripherals.elf elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x25
+ .ARM.attributes
+                0x00000000       0x19 startup.o
+ .ARM.attributes
+                0x00000019       0x29 main.o
+
+.comment        0x00000000       0x2a
+ .comment       0x00000000       0x2a main.o
+                                 0x2b (size before relaxing)
